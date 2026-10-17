@@ -82,3 +82,5 @@ logs/
 wandb/
 mlruns/
 lightning_logs/
+.venv
+pyproject.toml

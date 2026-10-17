@@ -1,0 +1,17 @@
+langchain
+langchain-community
+langchain-openai
+
+duckdb
+duckdb-engine
+sqlalchemy
+
+sqlglot
+
+fastapi
+uvicorn[standard]
+
+python-dotenv
+
+pytest
+ruff
