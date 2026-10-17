@@ -2,4 +2,17 @@
 name = "logistics-analytics-sql-agent"
 version = "0.1.0"
 requires-python = ">=3.9"
-dependencies = []
+dependencies = [
+    "duckdb>=1.4.5",
+    "duckdb-engine>=0.17.0",
+    "fastapi>=0.128.8",
+    "langchain>=0.3.30",
+    "langchain-community>=0.3.31",
+    "langchain-openai>=0.3.35",
+    "pytest>=8.4.2",
+    "python-dotenv>=1.2.1",
+    "ruff>=0.17.1",
+    "sqlalchemy>=2.0.55",
+    "sqlglot>=30.23.0",
+    "uvicorn[standard]>=0.39.0",
+]
