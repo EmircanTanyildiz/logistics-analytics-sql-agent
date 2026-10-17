@@ -1,5 +1,6 @@
+```gitignore
 # ==============================================================================
-# 1. AI MODELS & WEIGHTS (Never commit gigabytes of binary artifacts)
+# 1. AI MODELS & WEIGHTS
 # ==============================================================================
 *.bin
 *.pt
@@ -10,77 +11,115 @@
 *.safetensors
 *.h5
 *.pb
+
 models/
 checkpoint*/
 
+
 # ==============================================================================
-# 2. DATASETS & VECTOR STORES (Prevent tracking raw data or local db volumes)
+# 2. DATASETS & LOCAL DATABASES
 # ==============================================================================
 data/
 datasets/
+
 *.csv
 *.jsonl
 *.parquet
 *.pickle
 *.pkl
 
-# Vector Databases / Local DBs
-.chroma/
+# SQLite
 *.sqlite
+*.sqlite3
+*.db
+
+# DuckDB
 *.duckdb
+*.duckdb.wal
+
+# Vector / Local Databases
+.chroma/
 .neo4j/
 milvus_data/
 
+
 # ==============================================================================
-# 3. CRITICAL SECRETS & API KEYS (LLM API keys, Cloud credentials)
+# 3. SECRETS & API KEYS
 # ==============================================================================
 .env
 .env.*
 !.env.example
+
 *.pem
 *.key
 *.token
+
 secrets/
 .aws/
 .gcloud/
 
+
 # ==============================================================================
-# 4. AI EDITORS, AGENTS & IDE CACHES (Cursor, Claude Code, etc.)
+# 4. AI EDITORS / IDEs
 # ==============================================================================
-# Ignore individual editor index caches but track shared prompts/rules if needed
 .cursorindexingignore
 .cursor/
 !.cursor/rules/
+
 .claude/
 !.claude/commands/
+
 .agents/
 
-# Standard IDEs
 .vscode/
 .idea/
+
 .ipynb_checkpoints/
 */.ipynb_checkpoints/
 
+
 # ==============================================================================
-# 5. PYTHON DEPENDENCIES & RUNTIMES
+# 5. PYTHON
 # ==============================================================================
 __pycache__/
 *.py[cod]
 *$py.class
+
 .venv/
 venv/
 ENV/
 env/
+
 .ruff_cache/
 .pytest_cache/
+.mypy_cache/
+
+# Coverage
+.coverage
+.coverage.*
+htmlcov/
+
+# Build artifacts
+build/
+dist/
+*.egg-info/
+
 
 # ==============================================================================
 # 6. LOGS & EXPERIMENT TRACKING
 # ==============================================================================
 *.log
 logs/
+
 wandb/
 mlruns/
 lightning_logs/
-.venv
-pyproject.toml
+
+
+# ==============================================================================
+# 7. OS FILES
+# ==============================================================================
+.DS_Store
+Thumbs.db
+Desktop.ini
+```
