@@ -1,11 +1,7 @@
-from dotenv import load_dotenv
 from langgraph.graph import MessagesState
 from langgraph.prebuilt import ToolNode
-from openai.types.admin.organization import role
 
-from react import llm, tools
-load_dotenv()
-
+from react import get_llm, tools
 
 SYSTEM_MESSAGE = """
 # ROLE AND IDENTITY
@@ -369,7 +365,7 @@ from available data, clearly explain why.
 
 # RESPONSE STYLE
 
-Respond in the same language as the user.
+Always respond in English, even when the user writes in another language.
 
 Explain findings clearly, accurately,
 and professionally.
@@ -426,10 +422,15 @@ When information is insufficient, acknowledge
 the limitation rather than inventing an answer.
 """
 
+
 def run_agent_reasoning(state: MessagesState) -> MessagesState:
     """
     run the agent reasoning node.
     """
-    response = llm.invoke([{"role":"system", "content": SYSTEM_MESSAGE}, *state["messages"]])
+    response = get_llm().invoke(
+        [{"role": "system", "content": SYSTEM_MESSAGE}, *state["messages"]]
+    )
     return {"messages": [response]}
+
+
 tool_node = ToolNode(tools)
