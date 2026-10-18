@@ -1,0 +1,23 @@
+
+LOGISTICS BUSINESS CONTEXT
+
+Driver Performance:
+- On-time delivery rate measures the percentage
+  of deliveries completed on schedule.
+- Fuel efficiency is measured in MPG.
+- Revenue per mile measures generated revenue
+  divided by driven miles.
+
+Fleet Utilization:
+- Truck utilization measures how effectively
+  fleet assets are used.
+- Revenue per truck measures revenue generated
+  by each truck.
+
+Route Profitability:
+- Route profitability compares revenue against
+  associated operating costs.
+
+Customer Performance:
+- Customer revenue measures total shipment revenue.
+- Service level measures delivery performance.
