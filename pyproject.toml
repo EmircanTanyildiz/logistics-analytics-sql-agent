@@ -1,6 +1,8 @@
 [project]
 name = "logistics-analytics-sql-agent"
 version = "0.1.0"
+description = "Natural-language logistics analytics with LangGraph, DataFusion, and Streamlit."
+readme = "README.md"
 requires-python = ">=3.9"
 dependencies = [
     "datafusion>=50.1.0",
@@ -12,10 +14,24 @@ dependencies = [
     "langchain-openai>=0.3.35",
     "langgraph>=0.6.11",
     "nodes>=1.8.4",
+    "pandas>=2.2,<3",
     "pytest>=8.4.2",
     "python-dotenv>=1.2.1",
     "ruff>=0.17.1",
     "sqlalchemy>=2.0.55",
     "sqlglot>=30.23.0",
+    "streamlit>=1.49,<2",
     "uvicorn[standard]>=0.39.0",
 ]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+pythonpath = ["."]
+addopts = "-m 'not integration'"
+markers = ["integration: live OpenAI calls requiring an API key and the logistics CSV dataset"]
+
+[tool.ruff]
+target-version = "py39"
+
+[tool.ruff.lint]
+select = ["E4", "E7", "E9", "F", "I"]
