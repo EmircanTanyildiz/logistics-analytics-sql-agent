@@ -1,6 +1,7 @@
 
 from dotenv import load_dotenv
-
+from langchain_core.messages import HumanMessage
+from langgraph.errors import GraphRecursionError
 from langchain_core.messages import HumanMessage
 from langgraph.graph import (
     START,
@@ -55,15 +56,7 @@ if __name__ == "__main__":
     print("Logistics Analytics SQL Agent")
 
     result = app.invoke(
-        {
-            "messages": [
-                HumanMessage(
-                    content=(
-                        "Show the top 10 drivers with the highest number of trips."
-                    )
-                )
-            ]
-        },
+        {"messages": [HumanMessage(content="Show the top 10 drivers by trip count.")]},
         config={"recursion_limit": 30},
     )
 
