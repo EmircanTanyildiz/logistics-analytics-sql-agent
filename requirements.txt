@@ -10,8 +10,10 @@ sqlglot
 
 fastapi
 uvicorn[standard]
-
+datafusion
 python-dotenv
 
+nodes
 pytest
 ruff
+langgraph
