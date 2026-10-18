@@ -22,25 +22,52 @@ def list_tables() -> list[str]:
     return schema.table_names()
 
 
+
 @tool
-def get_table_schema():
-    """get column names and data types for a table."""
-    catalog = ctx.catalog()
-    schema = catalog.schema("public")
-    if table_name not in schema.table_names():
-        return {"error": f"Table '{table_name}' not found"}
-    table = schema.table("public")
-    arrow_schema = table.schema
-    return {
-        "table_names":table_name,
-        "columns":[{
-            "name":field.name,
-            "data_type": str(field.type),
-            "nullable": field.nullable
-        }
-        for field in arrow_schema
+def get_table_schema(table_name: str) -> dict:
+    """
+    Get the column names and data types
+    of a registered DataFusion table.
+
+    Args:
+        table_name: Name of the table to inspect.
+    """
+
+    try:
+        # Check registered tables
+        catalog = ctx.catalog()
+        schema = catalog.schema("public")
+
+        if table_name not in schema.table_names():
+            return {
+                "success": False,
+                "error": f"Table '{table_name}' not found."
+            }
+
+        # Get DataFusion table schema
+        df = ctx.table(table_name)
+        arrow_schema = df.schema()
+
+        columns = [
+            {
+                "name": field.name,
+                "data_type": str(field.type),
+                "nullable": field.nullable
+            }
+            for field in arrow_schema
         ]
-    }
+
+        return {
+            "success": True,
+            "table_name": table_name,
+            "columns": columns
+        }
+
+    except Exception as e:
+        return {
+            "success": False,
+            "error": str(e)
+        }
 
 
 @tool
