@@ -17,3 +17,5 @@ nodes
 pytest
 ruff
 langgraph
+pandas>=2.2,<3
+streamlit>=1.49,<2

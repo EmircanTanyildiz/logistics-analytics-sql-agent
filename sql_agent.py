@@ -1,18 +1,9 @@
+import argparse
 
-from dotenv import load_dotenv
 from langchain_core.messages import HumanMessage
-from langgraph.errors import GraphRecursionError
-from langchain_core.messages import HumanMessage
-from langgraph.graph import (
-    START,
-    END,
-    MessagesState,
-    StateGraph
-)
+from langgraph.graph import END, START, MessagesState, StateGraph
 
 from nodes import run_agent_reasoning, tool_node
-
-load_dotenv()
 
 AGENT_REASON = "agent_reason"
 ACT = "act"
@@ -34,29 +25,29 @@ flow.add_node(ACT, tool_node)
 
 flow.add_edge(START, AGENT_REASON)
 
-flow.add_conditional_edges(
-    AGENT_REASON,
-    should_continue,
-    {
-        ACT: ACT,
-        END: END
-    }
-)
+flow.add_conditional_edges(AGENT_REASON, should_continue, {ACT: ACT, END: END})
 
 flow.add_edge(ACT, AGENT_REASON)
 
 app = flow.compile()
 
-app.get_graph().draw_mermaid_png(
-    output_file_path="flow.png"
-)
-
-
 if __name__ == "__main__":
+    parser = argparse.ArgumentParser(description="Ask a question about logistics data.")
+    parser.add_argument(
+        "question", nargs="?", help="Natural-language analytics question"
+    )
+    args = parser.parse_args()
+
     print("Logistics Analytics SQL Agent")
+    question = (
+        args.question if args.question is not None else input("Your question: ")
+    ).strip()
+
+    if not question:
+        parser.error("The question cannot be empty.")
 
     result = app.invoke(
-        {"messages": [HumanMessage(content="Show the top 10 drivers by trip count.")]},
+        {"messages": [HumanMessage(content=question)]},
         config={"recursion_limit": 30},
     )
 

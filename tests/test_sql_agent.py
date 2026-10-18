@@ -1,10 +1,9 @@
 
 import pytest
-
 from langchain_core.messages import HumanMessage
 
-from sql_agent import app
 from react import ctx
+from sql_agent import app
 
 
 def parse_markdown_table(answer: str) -> list[dict]:
