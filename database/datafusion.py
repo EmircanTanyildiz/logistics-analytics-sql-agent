@@ -1,5 +1,6 @@
 
 from pathlib import Path
+
 from datafusion import SessionContext
 
 BASE_DIR = Path(__file__).resolve().parent.parent
