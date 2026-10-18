@@ -44,20 +44,21 @@ def get_table_schema():
 
 
 @tool
-def get_table_relationship():
-    """get table relationship from the logistics schema."""
-    catalog = ctx.catalog()
-    schema = catalog.schema("public")
+def get_table_relationship() -> str:
+    """Get table relationships from the logistics schema."""
 
     content = SCHEMA_PATH.read_text(encoding="utf-8")
-    if "KEY RELATIONSHIPS" is not in content:
-        return "KEY RELATIONSHIPS was not found"
-    relationship = content.split("KEY RELATIONSHIPS",1)[1]
-    relationship = relationship.split(
+
+    if "KEY RELATIONSHIPS:" not in content:
+        return "No relationship information found."
+
+    relationships = content.split("KEY RELATIONSHIPS:", 1)[1]
+
+    relationships = relationships.split(
         "ANALYTICAL USE CASES:", 1
     )[0]
-    return relationships.strip()
 
+    return relationships.strip()
 BUSINESS_CONTEXT_PATH = BASE_DIR / "business_context.txt"
 
 
