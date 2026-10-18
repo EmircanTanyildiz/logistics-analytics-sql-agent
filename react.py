@@ -2,8 +2,11 @@ from dotenv import load_dotenv
 from langchain_core.tools import tool
 from langchain_openai import ChatOpenAI
 from database.datafusion import ctx
+from pathlib import Path
 load_dotenv()
 
+BASE_DIR = Path(__file__).resolve().parent.parent
+SCHEMA_PATH = BASE_DIR / "logisticsDatasetCSV" / "DATABASE_SCHEMA.txt"
 
 @tool
 def list_tables() -> list[str]:
@@ -37,7 +40,21 @@ def get_table_schema():
 
 @tool
 def get_table_relationship():
-    pass
+    """get table relationship from the logistics schema."""
+    catalog = ctx.catalog()
+    schema = catalog.schema("public")
+
+    content = SCHEMA_PATH.read_text(encoding="utf-8")
+    if "KEY RELATIONSHIPS" is not in content:
+        return "KEY RELATIONSHIPS was not found"
+    relationship = content.split("KEY RELATIONSHIPS",1)[1]
+    relationship = relationship.split(
+        "ANALYTICAL USE CASES:", 1
+    )[0]
+    return relationships.strip()
+
+
+
 @tool
 def get_business_context():
     pass
